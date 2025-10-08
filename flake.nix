@@ -472,7 +472,7 @@
                     Restart = "on-failure";
                     User = "root";
                     ProtectSystem = "strict";
-                    ReadWritePaths = "/home /var/run/himmelblaud /tmp /etc/krb5.conf.d /etc";
+                    ReadWritePaths = "/home /var/run/himmelblaud /tmp /etc/krb5.conf.d /etc /var/lib/AccountsService";
                     RestrictAddressFamilies = "AF_UNIX";
                   };
                 };
