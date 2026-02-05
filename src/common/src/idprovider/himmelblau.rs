@@ -845,18 +845,38 @@ macro_rules! check_new_device_enrollment_required {
             let csr_tag = $self.fetch_cert_key_tag();
             if let Err(e) = $keystore.delete_tagged_hsm_key(&csr_tag) {
                 error!("Failed to delete CSR key: {:?}", e);
-                return Ok((AuthResult::Denied(msal_error_to_user_message(&MsalError::AcquireTokenFailed($aadsts_err))), AuthCacheAction::None))
+                return Ok((
+                    AuthResult::Denied(msal_error_to_user_message(&MsalError::AcquireTokenFailed(
+                        $aadsts_err,
+                    ))),
+                    AuthCacheAction::None,
+                ));
             }
             let intune_tag = $self.fetch_intune_key_tag();
             if let Err(e) = $keystore.delete_tagged_hsm_key(&intune_tag) {
                 error!("Failed to delete intune key: {:?}", e);
-                return Ok((AuthResult::Denied(msal_error_to_user_message(&MsalError::AcquireTokenFailed($aadsts_err))), AuthCacheAction::None))
+                return Ok((
+                    AuthResult::Denied(msal_error_to_user_message(&MsalError::AcquireTokenFailed(
+                        $aadsts_err,
+                    ))),
+                    AuthCacheAction::None,
+                ));
             }
 
             error!("Device has been removed from the domain.");
-            return Ok((AuthResult::Denied(msal_error_to_user_message(&MsalError::AcquireTokenFailed($aadsts_err))), AuthCacheAction::None))
+            return Ok((
+                AuthResult::Denied(msal_error_to_user_message(&MsalError::AcquireTokenFailed(
+                    $aadsts_err,
+                ))),
+                AuthCacheAction::None,
+            ));
         }
-        return Ok((AuthResult::Denied(msal_error_to_user_message(&MsalError::AcquireTokenFailed($aadsts_err))), AuthCacheAction::None))
+        return Ok((
+            AuthResult::Denied(msal_error_to_user_message(&MsalError::AcquireTokenFailed(
+                $aadsts_err,
+            ))),
+            AuthCacheAction::None,
+        ));
     }};
 }
 
